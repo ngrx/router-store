@@ -11,11 +11,13 @@
   },
   "filesGlob": [
     "./**/*.ts",
-    "../typings/main.d.ts",
-    "../manual-typings/path-to-regexp.d.ts"
+    "../typings/main.d.ts"
   ],
   "files": [
+    "./actions.spec.ts",
+    "./connect.spec.ts",
     "./index.spec.ts",
+    "./reducer.spec.ts",
     "../typings/main.d.ts"
   ],
   "atom": {

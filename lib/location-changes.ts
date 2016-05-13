@@ -6,8 +6,6 @@ import { Observable } from 'rxjs/Observable';
 import { listenForRouterMethodActions, connectRouterActions, projectLocationChanges } from './connect';
 
 
-
-
 export const LOCATION_CHANGES_PROVIDER = new Provider(LOCATION_CHANGES, {
   deps: [ Router, Dispatcher, Store ],
   useFactory(router: Router, dispatcher: Observable<Action>, store: Store<any>): Observable<LocationChange> {

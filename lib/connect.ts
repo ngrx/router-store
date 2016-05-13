@@ -3,12 +3,13 @@ import 'rxjs/add/operator/map';
 import { Router, LocationChange } from '@ngrx/router';
 import { Action, Dispatcher, Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
+import { Observer } from 'rxjs/Observer';
 
 import { RouterState } from './reducer';
 import { RouterMethodCall, routerActions, routerActionTypes } from './actions';
 
-export function projectLocationChanges(state$: Store<{ router: RouterState }>): Observable<LocationChange> {
-  return state$.select(s => s.router).filter(change => change !== null);
+export function projectLocationChanges(state$: Observable<{ router: RouterState }>): Observable<LocationChange> {
+  return state$.map(s => s.router).filter(change => change !== null);
 }
 
 export function listenForRouterMethodActions(router: Router, actions$: Observable<Action>) {
@@ -23,7 +24,7 @@ export function listenForRouterMethodActions(router: Router, actions$: Observabl
           break;
 
         case routerActions.REPLACE:
-          router.go(path, query);
+          router.replace(path, query);
           break;
 
         case routerActions.SEARCH:
@@ -36,11 +37,12 @@ export function listenForRouterMethodActions(router: Router, actions$: Observabl
 
         case routerActions.FORWARD:
           router.forward();
+          break;
       }
     });
 }
 
-export function connectRouterActions(router: Router, store: Store<any>) {
+export function connectRouterActions(router: Observable<LocationChange>, store: Observer<Action>) {
   router
     .map(change => ({ type: routerActions.UPDATE_LOCATION, payload: change }))
     .subscribe(store);
