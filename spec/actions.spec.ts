@@ -21,6 +21,16 @@ describe('Actions', function() {
     });
   });
 
+  it('should provide a "show" action creator', function() {
+    expect(actions.show('/path', 'query=string')).toEqual({
+      type: actions.routerActions.SHOW,
+      payload: {
+        path: '/path',
+        query: 'query=string'
+      }
+    });
+  });
+
   it('should provide a "search" action creator', function() {
     expect(actions.search('query=string')).toEqual({
       type: actions.routerActions.SEARCH,

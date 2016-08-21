@@ -1,13 +1,3 @@
-import { Provider } from '@angular/core';
-
-import { LOCATION_CHANGES_PROVIDER } from './location-changes';
-
-export function connectRouterToStore() {
-  return [
-    LOCATION_CHANGES_PROVIDER
-  ];
-}
-
 export {
   go,
   replace,
@@ -21,3 +11,7 @@ export {
   routerReducer,
   RouterState
 } from './reducer';
+
+export {
+  RouterStoreModule
+} from './router-store-module';

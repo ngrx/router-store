@@ -1,49 +1,79 @@
+import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/filter';
+import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/map';
-import { Router, LocationChange } from '@ngrx/router';
-import { Action, Dispatcher, Store } from '@ngrx/store';
+import 'rxjs/add/operator/withLatestFrom';
+import '@ngrx/core/add/operator/select';
+import { Router, Event, NavigationEnd } from '@angular/router';
+import { Location } from '@angular/common';
+import { Store, Action } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
 
-import { RouterState } from './reducer';
 import { RouterMethodCall, routerActions, routerActionTypes } from './actions';
 
-export function projectLocationChanges(state$: Observable<{ router: RouterState }>): Observable<LocationChange> {
-  return state$.map(s => s.router).filter(change => change !== null);
-}
-
-export function listenForRouterMethodActions(router: Router, actions$: Observable<Action>) {
+export function listenForRouterMethodActions(router: Router, location: Location, actions$: Observable<Action>) {
   actions$
     .filter(action => routerActionTypes.indexOf(action.type) > -1)
     .subscribe(action => {
-      const { path, query }: RouterMethodCall = action.payload;
+      const { path, query: queryParams }: RouterMethodCall = action.payload;
+      let commands: any[] = [path];
 
       switch (action.type) {
         case routerActions.GO:
-          router.go(path, query);
+          router.navigate(commands, { queryParams });
           break;
 
         case routerActions.REPLACE:
-          router.replace(path, query);
+          router.navigate(commands, { queryParams, replaceUrl: true });
           break;
 
         case routerActions.SEARCH:
-          router.search(query);
+          let url = router.url;
+          let command = url.split(/\?/)[0];
+          router.navigate([command], { queryParams });
+          break;
+
+        case routerActions.SHOW:
+          router.navigate(commands, { queryParams, skipLocationChange: true });
           break;
 
         case routerActions.BACK:
-          router.back();
+          location.back();
           break;
 
         case routerActions.FORWARD:
-          router.forward();
+          location.forward();
           break;
       }
     });
 }
 
-export function connectRouterActions(router: Observable<LocationChange>, store: Observer<Action>) {
-  router
-    .map(change => ({ type: routerActions.UPDATE_LOCATION, payload: change }))
+export function selectRouter(store: Store<any>) {
+  return store.select(state => state.router);
+}
+
+export function getLatestUrl(router: Router): Observable<string> {
+  return router
+    .events
+    .filter((event: Event) => event instanceof NavigationEnd)
+    .map(() => router.url)
+    .distinctUntilChanged();
+}
+
+export function connectRouterActions(router: Router, store: Store<any>) {
+  getLatestUrl(router)
+    .withLatestFrom(selectRouter(store))
+    .filter(([url, rs]) => (rs && rs.path !== url) || !rs)
+    .map(([path]) => ({ type: routerActions.UPDATE_LOCATION, payload: { path } }))
     .subscribe(store);
+}
+
+export function listenForStoreChanges(router: Router, store: Store<any>) {
+  selectRouter(store)
+    .withLatestFrom(getLatestUrl(router))
+    .filter(([rs, url]) => rs.path !== url)
+    .map(([rs]) => rs.path)
+    .do(url => router.navigateByUrl(url))
+    .subscribe();
 }

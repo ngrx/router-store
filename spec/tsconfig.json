@@ -11,14 +11,14 @@
   },
   "filesGlob": [
     "./**/*.ts",
-    "../typings/main.d.ts"
+    "../typings/index.d.ts"
   ],
   "files": [
     "./actions.spec.ts",
     "./connect.spec.ts",
     "./index.spec.ts",
     "./reducer.spec.ts",
-    "../typings/main.d.ts"
+    "../typings/index.d.ts"
   ],
   "atom": {
     "rewriteTsconfig": true
