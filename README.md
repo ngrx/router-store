@@ -1,5 +1,5 @@
 # @ngrx/router-store
-### Bindings to connect ngrx/router to ngrx/store
+### Bindings to connect angular/router to ngrx/store
 
 
 ### Setup
@@ -9,25 +9,20 @@
   npm install @ngrx/router-store --save
   ```
 
-2. Use the `routerReducer` when providing `Store`:
-  ```ts
-  import { provideStore } from '@ngrx/store';
-  import { routerReducer } from '@ngrx/router-store';
-  
-  
-  export const storeProvider = provideStore({
-    // Your reducers go here,
-    router: routerReducer
-  });
-  ```
+2. Use the `routerReducer` when providing the `StoreModule.provideStore` and add the `RouterStoreModule.connectRouter` to the `@NgModule.imports`:
 
-3. Install the bindings providers after you setup the router providers:
   ```ts
-  import { connectRouterToStore } from '@ngrx/router-store';
-  
-  bootstrap(App, [
-    storeProvider,
-    provideRouter(routes),
-    connectRouterToStore()
-  ]);
+  import { StoreModule } from '@ngrx/store';
+  import { routerReducer, RouterStoreModule } from '@ngrx/router-store';
+
+  @NgModule({
+    imports: [
+      BrowserModule,
+      StoreModule.provideStore({ router: routerReducer }),
+      RouterStoreModule.connectRouter()
+    ],
+    bootstrap: [ AppComponent ]
+  })
+  export class AppModule {
+  }
   ```

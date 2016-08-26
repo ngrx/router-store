@@ -9,6 +9,7 @@ export const routerActions = {
   GO: '[Router] Go',
   REPLACE: '[Router] Replace',
   SEARCH: '[Router] Search',
+  SHOW: '[Router] Show',
   BACK: '[Router] Back',
   FORWARD: '[Router] Forward',
   UPDATE_LOCATION: '[Router] Update Location'
@@ -32,6 +33,12 @@ export function search(query: any): Action {
   const payload: RouterMethodCall = { query };
 
   return { type: routerActions.SEARCH, payload };
+}
+
+export function show(path: string, query?: any): Action {
+  const payload: RouterMethodCall = { path, query };
+
+  return { type: routerActions.SHOW, payload };
 }
 
 export function back(): Action {
