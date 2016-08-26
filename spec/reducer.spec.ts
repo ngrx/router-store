@@ -1,6 +1,6 @@
 
-import { routerActions } from '../lib/actions';
-import { routerReducer, RouterState } from '../lib/reducer';
+import { routerActions } from '../src/actions';
+import { routerReducer, RouterState } from '../src/reducer';
 
 
 describe('routerReducer', function() {

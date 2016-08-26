@@ -25,7 +25,7 @@ export function listenForRouterMethodActions(router: Router, location: Location,
           break;
 
         case routerActions.REPLACE:
-          router.navigate(commands, { queryParams, replaceUrl: true });
+          router.navigate(commands, <any>({ queryParams, replaceUrl: true }));
           break;
 
         case routerActions.SEARCH:
