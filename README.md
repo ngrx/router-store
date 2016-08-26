@@ -30,7 +30,7 @@
 3. Add `RouterState` to main application state:
 
   ```ts
-  import { RouterState } from '@ngrx/router-store/';
+  import { RouterState } from '@ngrx/router-store';
   //...
   export interface AppState {
     router: RouterState;
