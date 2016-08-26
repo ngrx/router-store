@@ -4,9 +4,9 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Router, NavigationEnd } from '@angular/router';
 import { Store } from '@ngrx/store';
 
-import { RouterState } from '../lib/reducer';
-import * as routerActions from '../lib/actions';
-import { listenForRouterMethodActions, connectRouterActions } from '../lib/connect';
+import { RouterState } from '../src/reducer';
+import * as routerActions from '../src/actions';
+import { listenForRouterMethodActions, connectRouterActions } from '../src/connect';
 
 describe('Router/Store Connectors', function() {
   describe('listenForRouterMethodActions', function() {

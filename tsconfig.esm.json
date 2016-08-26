@@ -2,9 +2,9 @@
   "version": "2.0.0",
   "compileOnSave": false,
   "compilerOptions": {
-    "outDir": "./release",
+    "outDir": "./release/esm",
     "target": "es5",
-    "module": "commonjs",
+    "module": "es2015",
     "sourceMap": false,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,

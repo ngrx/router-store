@@ -1,4 +1,4 @@
-import * as actions from '../lib/actions';
+import * as actions from '../src/actions';
 
 describe('Actions', function() {
   it('should provide a "go" action creator', function() {
