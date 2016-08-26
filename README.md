@@ -40,7 +40,7 @@
 ### Dispatching actions
 
 ```ts
-import { go, replace, search } from '@ngrx/store-store';
+import { go, replace, search } from '@ngrx/router-store';
 
 // ...
 store.dispatch(go('/path', { query: 'string' ));
