@@ -40,10 +40,13 @@
 ### Dispatching actions
 
 ```ts
-import { go, replace, search } from '@ngrx/router-store';
+import { go, replace, search, show, back, forward } from '@ngrx/router-store';
 
 // ...
-store.dispatch(go('/path', { query: 'string' ));
-store.dispatch(replace('/path', { query: 'string' ));
+store.dispatch(go('/path', { query: 'string' }));
+store.dispatch(replace('/path', { query: 'string' }));
 store.dispatch(search({ query: 'string' ));
+store.dispatch(show('/path', { query: 'string' }));
+store.dispatch(back());
+store.dispatch(forward());
 ```
