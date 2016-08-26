@@ -26,3 +26,27 @@
   export class AppModule {
   }
   ```
+
+3. Add `RouterState` to main application state:
+
+  ```ts
+  import { RouterState } from '@ngrx/router-store';
+  
+  export interface AppState {
+    router: RouterState;
+  };
+  ```
+
+### Dispatching actions
+
+```ts
+import { go, replace, search, show, back, forward } from '@ngrx/router-store';
+
+// ...
+store.dispatch(go('/path', { query: 'string' }));
+store.dispatch(replace('/path', { query: 'string' }));
+store.dispatch(search({ query: 'string' }));
+store.dispatch(show('/path', { query: 'string' }));
+store.dispatch(back());
+store.dispatch(forward());
+```
