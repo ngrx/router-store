@@ -2,14 +2,15 @@
 ### Bindings to connect angular/router to ngrx/store
 
 
-### Setup
+### Installation
 
-1. Use npm to install the bindings:
   ```
   npm install @ngrx/router-store --save
   ```
 
-2. Use the `routerReducer` when providing the `StoreModule.provideStore` and add the `RouterStoreModule.connectRouter` to the `@NgModule.imports`:
+### Setup
+
+1. Use the `routerReducer` when providing the `StoreModule.provideStore` and add the `RouterStoreModule.connectRouter` to the `@NgModule.imports`:
 
   ```ts
   import { StoreModule } from '@ngrx/store';
@@ -27,26 +28,53 @@
   }
   ```
 
-3. Add `RouterState` to main application state:
+2. Add `RouterState` to main application state:
 
   ```ts
   import { RouterState } from '@ngrx/router-store';
-  
+
   export interface AppState {
     router: RouterState;
   };
   ```
 
-### Dispatching actions
+### Dispatching Actions
 
-```ts
-import { go, replace, search, show, back, forward } from '@ngrx/router-store';
+  ```ts
+  import { go, replace, search, show, back, forward } from '@ngrx/router-store';
+  ```
 
-// ...
-store.dispatch(go('/path', { query: 'string' }));
-store.dispatch(replace('/path', { query: 'string' }));
-store.dispatch(search({ query: 'string' }));
-store.dispatch(show('/path', { query: 'string' }));
-store.dispatch(back());
-store.dispatch(forward());
-```
+#### Navigation with a new state into history
+
+  ```ts
+  store.dispatch(go(['/path', { routeParam: 1 }], { query: 'string' }));
+  ```
+
+#### Navigation with replacing the current state in history
+
+  ```ts
+  store.dispatch(replace(['/path'], { query: 'string' }));
+  ```
+#### Navigation without pushing a new state into history
+
+  ```ts
+  store.dispatch(show(['/path'], { query: 'string' }));
+  ```
+
+#### Navigation with only changing query parameters
+
+  ```ts
+  store.dispatch(search({ query: 'string' }));
+  ```
+
+#### Navigating back
+
+  ```ts
+  store.dispatch(back());
+  ```
+
+#### Navigating forward
+
+  ```ts
+  store.dispatch(forward());
+  ```

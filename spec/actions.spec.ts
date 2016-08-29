@@ -2,40 +2,64 @@ import * as actions from '../src/actions';
 
 describe('Actions', function() {
   it('should provide a "go" action creator', function() {
-    expect(actions.go('/path', 'query=string')).toEqual({
+    expect(actions.go('/path', { query: 'string' })).toEqual({
       type: actions.routerActions.GO,
       payload: {
         path: '/path',
-        query: 'query=string'
+        query: { query: 'string' }
+      }
+    });
+
+    expect(actions.go(['/path'], { query: 'string' })).toEqual({
+      type: actions.routerActions.GO,
+      payload: {
+        path: ['/path'],
+        query: { query: 'string' }
       }
     });
   });
 
   it('should provide a "replace" action creator', function() {
-    expect(actions.replace('/path', 'query=string')).toEqual({
+    expect(actions.replace('/path', { query: 'string' })).toEqual({
       type: actions.routerActions.REPLACE,
       payload: {
         path: '/path',
-        query: 'query=string'
+        query: { query: 'string' }
+      }
+    });
+
+    expect(actions.replace(['/path'], { query: 'string' })).toEqual({
+      type: actions.routerActions.REPLACE,
+      payload: {
+        path: ['/path'],
+        query: { query: 'string' }
       }
     });
   });
 
   it('should provide a "show" action creator', function() {
-    expect(actions.show('/path', 'query=string')).toEqual({
+    expect(actions.show('/path', { query: 'string' })).toEqual({
       type: actions.routerActions.SHOW,
       payload: {
         path: '/path',
-        query: 'query=string'
+        query: { query: 'string' }
+      }
+    });
+
+    expect(actions.show(['/path'], { query: 'string' })).toEqual({
+      type: actions.routerActions.SHOW,
+      payload: {
+        path: ['/path'],
+        query: { query: 'string' }
       }
     });
   });
 
   it('should provide a "search" action creator', function() {
-    expect(actions.search('query=string')).toEqual({
+    expect(actions.search({ query: 'string' })).toEqual({
       type: actions.routerActions.SEARCH,
       payload: {
-        query: 'query=string'
+        query: { query: 'string' }
       }
     });
   });

@@ -12,6 +12,9 @@ describe('Router/Store Connectors', function() {
   describe('listenForRouterMethodActions', function() {
     let router: any;
     let location: any;
+    let stringPath: string = '/path';
+    let stringArray: any[] = [stringPath];
+    let arrayPath: any[] = [stringPath, 1, { page: 1 }];
 
     beforeEach(function() {
       location = {
@@ -21,39 +24,68 @@ describe('Router/Store Connectors', function() {
 
       router = {
         navigate: jasmine.createSpy('navigate'),
+        navigateByUrl: jasmine.createSpy('navigate'),
+        parseUrl: jasmine.createSpy('navigate').and.returnValue({}),
         replace: jasmine.createSpy('replace'),
         search: jasmine.createSpy('search'),
-        show: jasmine.createSpy('show')
+        show: jasmine.createSpy('show'),
+        url: ''
       };
     });
 
-    it('should call Router@navigate when a "GO" action is dispatched', function() {
-      const action$ = Observable.of(routerActions.go('/path', 'query=string'));
-      listenForRouterMethodActions(router, location, action$);
+    describe('should call Router@navigate when a "GO" action is dispatched', function() {
+      it('with a string', function() {
+        const action$ = Observable.of(routerActions.go(stringPath, { query: 'string' }));
+        listenForRouterMethodActions(router, location, action$);
 
-      expect(router.navigate).toHaveBeenCalledWith(['/path'], { queryParams: 'query=string' });
+        expect(router.navigate).toHaveBeenCalledWith(stringArray, { queryParams: { query: 'string' } });
+      });
+
+      it('with an array', function() {
+        const action$ = Observable.of(routerActions.go(arrayPath, { query: 'string' }));
+        listenForRouterMethodActions(router, location, action$);
+
+        expect(router.navigate).toHaveBeenCalledWith(['/path', 1, { page: 1 }], { queryParams: { query: 'string' } });
+      });
     });
 
-    it('should call Router@navigate when a "REPLACE" action is dispatched', function() {
-      const action$ = Observable.of(routerActions.replace('/path', 'query=string'));
-      listenForRouterMethodActions(router, location, action$);
+    describe('should call Router@navigateByUrl when a "REPLACE" action is dispatched', function() {
+      it('with a string', function() {
+        const action$ = Observable.of(routerActions.replace(stringPath, { query: 'string' }));
+        listenForRouterMethodActions(router, location, action$);
 
-      expect(router.navigate).toHaveBeenCalledWith(['/path'], { queryParams: 'query=string', replaceUrl: true });
+        expect(router.navigate).toHaveBeenCalledWith(stringArray, { queryParams: { query: 'string' }, replaceUrl: true });
+      });
+
+      it('with an array', function() {
+        const action$ = Observable.of(routerActions.replace(arrayPath, { query: 'string' }));
+        listenForRouterMethodActions(router, location, action$);
+
+        expect(router.navigate).toHaveBeenCalledWith(arrayPath, { queryParams: { query: 'string' }, replaceUrl: true });
+      });
+    });
+    describe('should call Router@navigate when a "SHOW" action is dispatched', function() {
+      it('with a string', function() {
+        const action$ = Observable.of(routerActions.show(stringPath, { query: 'string' }));
+        listenForRouterMethodActions(router, location, action$);
+
+        expect(router.navigate).toHaveBeenCalledWith(stringArray, { queryParams: { query: 'string' }, skipLocationChange: true });
+      });
+
+      it('with an array', function() {
+        const action$ = Observable.of(routerActions.show(arrayPath, { query: 'string' }));
+        listenForRouterMethodActions(router, location, action$);
+
+        expect(router.navigate).toHaveBeenCalledWith(arrayPath, { queryParams: { query: 'string' }, skipLocationChange: true });
+      });
     });
 
     it('should call Router@navigate when a "SEARCH" action is dispatched', function() {
-      const action$ = Observable.of(routerActions.search('query=string'));
+      const action$ = Observable.of(routerActions.search({ query: 'string' }));
       router.url = '/path';
       listenForRouterMethodActions(router, location, action$);
 
-      expect(router.navigate).toHaveBeenCalledWith(['/path'], { queryParams: 'query=string' });
-    });
-
-    it('should call Router@navigate when a "SHOW" action is dispatched', function() {
-      const action$ = Observable.of(routerActions.show('/path', 'query=string'));
-      listenForRouterMethodActions(router, location, action$);
-
-      expect(router.navigate).toHaveBeenCalledWith(['/path'], { queryParams: 'query=string', skipLocationChange: true });
+      expect(router.navigateByUrl).toHaveBeenCalledWith({ queryParams: { query: 'string' } });
     });
 
     it('should call Location@back when a "BACK" action is dispatched', function() {
