@@ -4,6 +4,7 @@ export {
   search,
   back,
   forward,
+  show,
   routerActions
 } from './actions';
 
