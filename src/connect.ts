@@ -4,7 +4,7 @@ import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/withLatestFrom';
 import '@ngrx/core/add/operator/select';
-import { Router, Event, NavigationEnd } from '@angular/router';
+import { Router, Event, NavigationEnd, UrlTree } from '@angular/router';
 import { Location } from '@angular/common';
 import { Store, Action } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
@@ -17,7 +17,7 @@ export function listenForRouterMethodActions(router: Router, location: Location,
     .filter(action => routerActionTypes.indexOf(action.type) > -1)
     .subscribe(action => {
       const { path, query: queryParams }: RouterMethodCall = action.payload;
-      let commands: any[] = [path];
+      let commands: any[] = Array.isArray(path) ? path : [path];
 
       switch (action.type) {
         case routerActions.GO:
@@ -29,9 +29,9 @@ export function listenForRouterMethodActions(router: Router, location: Location,
           break;
 
         case routerActions.SEARCH:
-          let url = router.url;
-          let command = url.split(/\?/)[0];
-          router.navigate([command], { queryParams });
+          let urlTree: UrlTree = router.parseUrl(router.url);
+          urlTree.queryParams = queryParams;
+          router.navigateByUrl(urlTree);
           break;
 
         case routerActions.SHOW:

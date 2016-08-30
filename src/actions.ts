@@ -1,7 +1,7 @@
 import { Action } from '@ngrx/store';
 
 export interface RouterMethodCall {
-  path?: string;
+  path?: string | any[];
   query?: any;
 }
 
@@ -17,13 +17,13 @@ export const routerActions = {
 
 export const routerActionTypes = Object.keys(routerActions).map(key => routerActions[key]);
 
-export function go(path: string, query?: any): Action {
+export function go(path: string|any[], query?: any): Action {
   const payload: RouterMethodCall = { path, query };
 
   return { type: routerActions.GO, payload };
 }
 
-export function replace(path: string, query?: any): Action {
+export function replace(path: string|any[], query?: any): Action {
   const payload: RouterMethodCall = { path, query };
 
   return { type: routerActions.REPLACE, payload };
@@ -35,7 +35,7 @@ export function search(query: any): Action {
   return { type: routerActions.SEARCH, payload };
 }
 
-export function show(path: string, query?: any): Action {
+export function show(path: string|any[], query?: any): Action {
   const payload: RouterMethodCall = { path, query };
 
   return { type: routerActions.SHOW, payload };
