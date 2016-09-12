@@ -1,8 +1,10 @@
 import { Action } from '@ngrx/store';
+import { NavigationExtras } from '@angular/router';
 
 export interface RouterMethodCall {
   path?: string | any[];
   query?: any;
+  extras?: NavigationExtras;
 }
 
 export const routerActions = {
@@ -17,26 +19,26 @@ export const routerActions = {
 
 export const routerActionTypes = Object.keys(routerActions).map(key => routerActions[key]);
 
-export function go(path: string|any[], query?: any): Action {
-  const payload: RouterMethodCall = { path, query };
+export function go(path: string|any[], query?: any, extras?: NavigationExtras): Action {
+  const payload: RouterMethodCall = { path, query, extras };
 
   return { type: routerActions.GO, payload };
 }
 
-export function replace(path: string|any[], query?: any): Action {
-  const payload: RouterMethodCall = { path, query };
+export function replace(path: string|any[], query?: any, extras?: NavigationExtras): Action {
+  const payload: RouterMethodCall = { path, query, extras };
 
   return { type: routerActions.REPLACE, payload };
 }
 
-export function search(query: any): Action {
-  const payload: RouterMethodCall = { query };
+export function search(query: any, extras?: NavigationExtras): Action {
+  const payload: RouterMethodCall = { query, extras };
 
   return { type: routerActions.SEARCH, payload };
 }
 
-export function show(path: string|any[], query?: any): Action {
-  const payload: RouterMethodCall = { path, query };
+export function show(path: string|any[], query?: any, extras?: NavigationExtras): Action {
+  const payload: RouterMethodCall = { path, query, extras };
 
   return { type: routerActions.SHOW, payload };
 }

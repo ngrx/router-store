@@ -16,26 +16,26 @@ export function listenForRouterMethodActions(router: Router, location: Location,
   actions$
     .filter(action => routerActionTypes.indexOf(action.type) > -1)
     .subscribe(action => {
-      const { path, query: queryParams }: RouterMethodCall = action.payload;
+      const { path, query: queryParams, extras = {} }: RouterMethodCall = action.payload;
       let commands: any[] = Array.isArray(path) ? path : [path];
 
       switch (action.type) {
         case routerActions.GO:
-          router.navigate(commands, { queryParams });
+          router.navigate(commands, Object.assign({}, extras, { queryParams }));
           break;
 
         case routerActions.REPLACE:
-          router.navigate(commands, <any>({ queryParams, replaceUrl: true }));
+          router.navigate(commands, Object.assign({}, extras, <any>({ queryParams, replaceUrl: true })));
           break;
 
         case routerActions.SEARCH:
           let urlTree: UrlTree = router.parseUrl(router.url);
           urlTree.queryParams = queryParams;
-          router.navigateByUrl(urlTree);
+          router.navigateByUrl(urlTree, extras);
           break;
 
         case routerActions.SHOW:
-          router.navigate(commands, { queryParams, skipLocationChange: true });
+          router.navigate(commands, Object.assign({}, extras, { queryParams, skipLocationChange: true }));
           break;
 
         case routerActions.BACK:
