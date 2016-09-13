@@ -1,3 +1,13 @@
+<a name="1.2.0"></a>
+# [1.2.0](https://github.com/ngrx/router-store/compare/v1.1.0...v1.2.0) (2016-09-13)
+
+
+### Features
+
+* **actions:** Added support for router NavigationExtras ([#16](https://github.com/ngrx/router-store/issues/16)) ([e30cf16](https://github.com/ngrx/router-store/commit/e30cf16))
+
+
+
 <a name="1.1.0"></a>
 # [1.1.0](https://github.com/ngrx/router-store/compare/v1.0.0...v1.1.0) (2016-08-30)
 
