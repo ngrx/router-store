@@ -1,3 +1,13 @@
+<a name="1.2.1"></a>
+## [1.2.1](https://github.com/ngrx/router-store/compare/v1.2.0...v1.2.1) (2016-09-13)
+
+
+### Bug Fixes
+
+* **build:** Added [@angular](https://github.com/angular)/compiler-cli, [@angular](https://github.com/angular)/tsc-wrapped packages for build ([#17](https://github.com/ngrx/router-store/issues/17)) ([878a4a8](https://github.com/ngrx/router-store/commit/878a4a8))
+
+
+
 <a name="1.2.0"></a>
 # [1.2.0](https://github.com/ngrx/router-store/compare/v1.1.0...v1.2.0) (2016-09-13)
 
