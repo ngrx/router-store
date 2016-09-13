@@ -6,7 +6,8 @@ describe('Actions', function() {
       type: actions.routerActions.GO,
       payload: {
         path: '/path',
-        query: { query: 'string' }
+        query: { query: 'string' },
+        extras: undefined
       }
     });
 
@@ -14,7 +15,8 @@ describe('Actions', function() {
       type: actions.routerActions.GO,
       payload: {
         path: ['/path'],
-        query: { query: 'string' }
+        query: { query: 'string' },
+        extras: undefined
       }
     });
   });
@@ -24,7 +26,8 @@ describe('Actions', function() {
       type: actions.routerActions.REPLACE,
       payload: {
         path: '/path',
-        query: { query: 'string' }
+        query: { query: 'string' },
+        extras: undefined
       }
     });
 
@@ -32,7 +35,8 @@ describe('Actions', function() {
       type: actions.routerActions.REPLACE,
       payload: {
         path: ['/path'],
-        query: { query: 'string' }
+        query: { query: 'string' },
+        extras: undefined
       }
     });
   });
@@ -42,7 +46,8 @@ describe('Actions', function() {
       type: actions.routerActions.SHOW,
       payload: {
         path: '/path',
-        query: { query: 'string' }
+        query: { query: 'string' },
+        extras: undefined
       }
     });
 
@@ -50,7 +55,8 @@ describe('Actions', function() {
       type: actions.routerActions.SHOW,
       payload: {
         path: ['/path'],
-        query: { query: 'string' }
+        query: { query: 'string' },
+        extras: undefined
       }
     });
   });
@@ -59,7 +65,8 @@ describe('Actions', function() {
     expect(actions.search({ query: 'string' })).toEqual({
       type: actions.routerActions.SEARCH,
       payload: {
-        query: { query: 'string' }
+        query: { query: 'string' },
+        extras: undefined
       }
     });
   });

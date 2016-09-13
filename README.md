@@ -78,3 +78,22 @@
   ```ts
   store.dispatch(forward());
   ```
+
+### Navigation Extras
+
+The [Angular Router Navigation Extras](https://angular.io/docs/ts/latest/api/router/index/NavigationExtras-interface.html) are supported with each router action.
+
+```ts
+import { NavigationExtras } from '@angular/router';
+
+let extras: NavigationExtras = {
+  relativeTo: ActivatedRoute,
+  fragment: string,
+  preserveQueryParams: boolean,
+  preserveFragment: boolean,
+  skipLocationChange: boolean,
+  replaceUrl: boolean
+};
+
+store.dispatch(go(['path', { routeParam: 1 }], { query: 'string' }, extras));
+```
