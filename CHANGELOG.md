@@ -1,3 +1,13 @@
+<a name="1.2.2"></a>
+## [1.2.2](https://github.com/ngrx/router-store/compare/v1.2.1...v1.2.2) (2016-09-15)
+
+
+### Bug Fixes
+
+* **docs:** Replaced ngrx/router with angular/router in package.json ([#19](https://github.com/ngrx/router-store/issues/19)) ([8242b1d](https://github.com/ngrx/router-store/commit/8242b1d))
+
+
+
 <a name="1.2.1"></a>
 ## [1.2.1](https://github.com/ngrx/router-store/compare/v1.2.0...v1.2.1) (2016-09-13)
 
