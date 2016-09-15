@@ -3,12 +3,11 @@ import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/withLatestFrom';
-import '@ngrx/core/add/operator/select';
 import { Router, Event, NavigationEnd, UrlTree } from '@angular/router';
 import { Location } from '@angular/common';
 import { Store, Action } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { Observer } from 'rxjs/Observer';
+import { select } from '@ngrx/core';
 
 import { RouterMethodCall, routerActions, routerActionTypes } from './actions';
 
@@ -25,7 +24,7 @@ export function listenForRouterMethodActions(router: Router, location: Location,
           break;
 
         case routerActions.REPLACE:
-          router.navigate(commands, Object.assign({}, extras, <any>({ queryParams, replaceUrl: true })));
+          router.navigate(commands, Object.assign({}, extras, { queryParams, replaceUrl: true }));
           break;
 
         case routerActions.SEARCH:
@@ -50,7 +49,7 @@ export function listenForRouterMethodActions(router: Router, location: Location,
 }
 
 export function selectRouter(store: Store<any>) {
-  return store.select(state => state.router);
+  return select.call(store, (state) => state.router);
 }
 
 export function getLatestUrl(router: Router): Observable<string> {
