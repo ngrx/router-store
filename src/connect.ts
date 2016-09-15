@@ -1,19 +1,18 @@
-import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/filter';
-import 'rxjs/add/operator/distinctUntilChanged';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/withLatestFrom';
-import { Router, Event, NavigationEnd, UrlTree } from '@angular/router';
 import { Location } from '@angular/common';
-import { Store, Action } from '@ngrx/store';
+import { Router, Event, NavigationEnd, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
+import { _do } from 'rxjs/operator/do';
+import { filter } from 'rxjs/operator/filter';
+import { distinctUntilChanged } from 'rxjs/operator/distinctUntilChanged';
+import { map } from 'rxjs/operator/map';
+import { withLatestFrom } from 'rxjs/operator/withLatestFrom';
+import { Store, Action } from '@ngrx/store';
 import { select } from '@ngrx/core';
 
 import { RouterMethodCall, routerActions, routerActionTypes } from './actions';
 
 export function listenForRouterMethodActions(router: Router, location: Location, actions$: Observable<Action>) {
-  actions$
-    .filter(action => routerActionTypes.indexOf(action.type) > -1)
+  filter.call(actions$, action => routerActionTypes.indexOf(action.type) > -1)
     .subscribe(action => {
       const { path, query: queryParams, extras = {} }: RouterMethodCall = action.payload;
       let commands: any[] = Array.isArray(path) ? path : [path];
@@ -53,26 +52,26 @@ export function selectRouter(store: Store<any>) {
 }
 
 export function getLatestUrl(router: Router): Observable<string> {
-  return router
-    .events
-    .filter((event: Event) => event instanceof NavigationEnd)
-    .map(() => router.url)
-    .distinctUntilChanged();
+  const navigationEnd$ = filter.call(router.events, (event: Event) => event instanceof NavigationEnd);
+  const navigationEndUrl$ = select.call(navigationEnd$, () => router.url);
+
+  return navigationEndUrl$;
 }
 
 export function connectRouterActions(router: Router, store: Store<any>) {
-  getLatestUrl(router)
-    .withLatestFrom(selectRouter(store))
-    .filter(([url, rs]) => (rs && rs.path !== url) || !rs)
-    .map(([path]) => ({ type: routerActions.UPDATE_LOCATION, payload: { path } }))
-    .subscribe(store);
+  const routerAndStore$ = withLatestFrom.call(getLatestUrl(router), selectRouter(store));
+  const mismatchUrl$ = filter.call(routerAndStore$, ([ url, rs ]) => (rs && rs.path !== url || !rs));
+  const updateLocation$ = map.call(mismatchUrl$, ([ path ]) => {
+    return { type: routerActions.UPDATE_LOCATION, payload: { path }};
+  });
+
+  updateLocation$.subscribe(store);
 }
 
 export function listenForStoreChanges(router: Router, store: Store<any>) {
-  selectRouter(store)
-    .withLatestFrom(getLatestUrl(router))
-    .filter(([rs, url]) => rs.path !== url)
-    .map(([rs]) => rs.path)
-    .do(url => router.navigateByUrl(url))
-    .subscribe();
+  const storeAndRouter$ = withLatestFrom.call(store, getLatestUrl(router));
+  const mismatch$ = filter.call(storeAndRouter$, ([ rs, url ]) => rs.path !== url);
+  const newPath$ = map.call(mismatch$, ([ rs ]) => rs.path);
+
+  newPath$.subscribe(url => router.navigateByUrl(url));
 }
