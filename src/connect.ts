@@ -69,7 +69,7 @@ export function connectRouterActions(router: Router, store: Store<any>) {
 }
 
 export function listenForStoreChanges(router: Router, store: Store<any>) {
-  const storeAndRouter$ = withLatestFrom.call(store, getLatestUrl(router));
+  const storeAndRouter$ = withLatestFrom.call(selectRouter(store), getLatestUrl(router));
   const mismatch$ = filter.call(storeAndRouter$, ([ rs, url ]) => rs.path !== url);
   const newPath$ = map.call(mismatch$, ([ rs ]) => rs.path);
 
