@@ -1,54 +1,19 @@
-<a name="1.2.2"></a>
-## [1.2.2](https://github.com/ngrx/router-store/compare/v1.2.1...v1.2.2) (2016-09-15)
-
-
-### Bug Fixes
-
-* **docs:** Replaced ngrx/router with angular/router in package.json ([#19](https://github.com/ngrx/router-store/issues/19)) ([8242b1d](https://github.com/ngrx/router-store/commit/8242b1d))
-
-
-
-<a name="1.2.1"></a>
-## [1.2.1](https://github.com/ngrx/router-store/compare/v1.2.0...v1.2.1) (2016-09-13)
-
-
-### Bug Fixes
-
-* **build:** Added [@angular](https://github.com/angular)/compiler-cli, [@angular](https://github.com/angular)/tsc-wrapped packages for build ([#17](https://github.com/ngrx/router-store/issues/17)) ([878a4a8](https://github.com/ngrx/router-store/commit/878a4a8))
-
-
-
-<a name="1.2.0"></a>
-# [1.2.0](https://github.com/ngrx/router-store/compare/v1.1.0...v1.2.0) (2016-09-13)
-
-
-### Features
-
-* **actions:** Added support for router NavigationExtras ([#16](https://github.com/ngrx/router-store/issues/16)) ([e30cf16](https://github.com/ngrx/router-store/commit/e30cf16))
-
-
-
-<a name="1.1.0"></a>
-# [1.1.0](https://github.com/ngrx/router-store/compare/v1.0.0...v1.1.0) (2016-08-30)
+<a name="1.2.3"></a>
+## [1.2.3](https://github.com/ngrx/router-store/compare/v0.0.1...v1.2.3) (2016-09-16)
 
 
 ### Bug Fixes
 
 * **actions:** Added show action to export ([#10](https://github.com/ngrx/router-store/issues/10)) ([5a1ed83](https://github.com/ngrx/router-store/commit/5a1ed83))
+* **build:** Added [@angular](https://github.com/angular)/compiler-cli, [@angular](https://github.com/angular)/tsc-wrapped packages for build ([#17](https://github.com/ngrx/router-store/issues/17)) ([878a4a8](https://github.com/ngrx/router-store/commit/878a4a8))
+* **docs:** Replaced ngrx/router with angular/router in package.json ([#19](https://github.com/ngrx/router-store/issues/19)) ([8242b1d](https://github.com/ngrx/router-store/commit/8242b1d))
+* **listener:** Fixed bug with listening for store changes ([#23](https://github.com/ngrx/router-store/issues/23)) ([821bebc](https://github.com/ngrx/router-store/commit/821bebc))
 
 
 ### Features
 
 * **actions:** Added handling of an array for router actions ([#12](https://github.com/ngrx/router-store/issues/12)) ([3b4b827](https://github.com/ngrx/router-store/commit/3b4b827))
-
-
-
-<a name="1.0.0"></a>
-# [1.0.0](https://github.com/ngrx/router-store/compare/v0.0.1...v1.0.0) (2016-08-27)
-
-
-### Features
-
+* **actions:** Added support for router NavigationExtras ([#16](https://github.com/ngrx/router-store/issues/16)) ([e30cf16](https://github.com/ngrx/router-store/commit/e30cf16))
 * **router-store:** Provide bindings to connect [@angular](https://github.com/angular)/router ([2af0ed4](https://github.com/ngrx/router-store/commit/2af0ed4)), closes [#3](https://github.com/ngrx/router-store/issues/3)
 
 
