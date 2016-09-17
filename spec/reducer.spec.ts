@@ -1,9 +1,15 @@
 
 import { routerActions } from '../src/actions';
-import { routerReducer, RouterState } from '../src/reducer';
+import { routerReducer, RouterState, initialState } from '../src/reducer';
 
 
 describe('routerReducer', function() {
+  it('should have an initial state', function() {
+    const action = { type: 'unknown' };
+
+    expect(routerReducer(initialState, action)).toEqual({ path: null });
+  });
+
   it('should completely replace the state when a new location is pushed', function() {
     const payload = { path: '/some/path' };
     const action = { type: routerActions.UPDATE_LOCATION, payload };
