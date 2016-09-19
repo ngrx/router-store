@@ -1,3 +1,13 @@
+<a name="1.2.4"></a>
+## [1.2.4](https://github.com/ngrx/router-store/compare/v1.2.3...v1.2.4) (2016-09-19)
+
+
+### Bug Fixes
+
+* **reducer:** Added initial state ([#25](https://github.com/ngrx/router-store/issues/25)) ([103fe1b](https://github.com/ngrx/router-store/commit/103fe1b)), closes [#24](https://github.com/ngrx/router-store/issues/24)
+
+
+
 <a name="1.2.3"></a>
 ## [1.2.3](https://github.com/ngrx/router-store/compare/v1.2.2...v1.2.3) (2016-09-16)
 
