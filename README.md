@@ -38,6 +38,16 @@
   };
   ```
 
+3. (Optional) Set the initial value for the router state:
+
+  ```ts
+  StoreModule.provideStore({ router: routerReducer }, {
+    router: {
+      path: window.location.pathname + window.location.search
+    }
+  })
+  ```
+
 ### Dispatching Actions
 
   ```ts

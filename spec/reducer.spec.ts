@@ -7,7 +7,7 @@ describe('routerReducer', function() {
   it('should have an initial state', function() {
     const action = { type: 'unknown' };
 
-    expect(routerReducer(initialState, action)).toEqual({ path: null });
+    expect(routerReducer(initialState, action)).toEqual({ path: '' });
   });
 
   it('should completely replace the state when a new location is pushed', function() {
