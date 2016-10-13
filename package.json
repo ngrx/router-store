@@ -69,12 +69,11 @@
     "rollup": "^0.34.13",
     "rxjs": "^5.0.0-beta.12",
     "source-map-loader": "^0.1.5",
-    "ts-loader": "^0.8.2",
     "tslint": "^3.15.1",
     "tslint-loader": "^2.1.5",
     "typescript": "^2.0.2",
     "uglifyjs": "^2.4.10",
-    "webpack": "^2.1.0-beta.21",
+    "webpack": "^2.1.0-beta.25",
     "zone.js": "^0.6.17"
   }
 }

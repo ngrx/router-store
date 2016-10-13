@@ -6,7 +6,7 @@ export interface RouterState {
 }
 
 export const initialState: RouterState = {
-  path: null
+  path: ''
 };
 
 export function routerReducer(state: RouterState = initialState, action: Action): RouterState {
