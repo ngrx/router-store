@@ -1,3 +1,13 @@
+<a name="1.2.5"></a>
+## [1.2.5](https://github.com/ngrx/router-store/compare/v1.2.4...v1.2.5) (2016-10-13)
+
+
+### Bug Fixes
+
+* **reducer:** Added non-null value for initial state path ([#27](https://github.com/ngrx/router-store/issues/27)) ([2c776c5](https://github.com/ngrx/router-store/commit/2c776c5))
+
+
+
 <a name="1.2.4"></a>
 ## [1.2.4](https://github.com/ngrx/router-store/compare/v1.2.3...v1.2.4) (2016-09-19)
 
