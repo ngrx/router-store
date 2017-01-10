@@ -9,6 +9,7 @@ export interface RouterMethodCall {
 
 export const routerActions = {
   GO: '[Router] Go',
+  GO_TO_URL: '[Router] Go to URL',
   REPLACE: '[Router] Replace',
   SEARCH: '[Router] Search',
   SHOW: '[Router] Show',
@@ -23,6 +24,12 @@ export function go(path: string|any[], query?: any, extras?: NavigationExtras): 
   const payload: RouterMethodCall = { path, query, extras };
 
   return { type: routerActions.GO, payload };
+}
+
+export function goToUrl(path: string, extras?: NavigationExtras): Action {
+  const payload: RouterMethodCall = { path, extras };
+
+  return { type: routerActions.GO_TO_URL, payload };
 }
 
 export function replace(path: string|any[], query?: any, extras?: NavigationExtras): Action {

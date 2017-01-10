@@ -21,6 +21,17 @@ describe('Actions', function() {
     });
   });
 
+  it('should provide a "goToUrl" action creator', function() {
+    expect(actions.goToUrl('/path')).toEqual({
+      type: actions.routerActions.GO_TO_URL,
+      payload: {
+        path: '/path',
+        query: undefined,
+        extras: undefined
+      }
+    });
+  });
+
   it('should provide a "replace" action creator', function() {
     expect(actions.replace('/path', { query: 'string' })).toEqual({
       type: actions.routerActions.REPLACE,
