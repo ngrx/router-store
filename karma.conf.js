@@ -32,6 +32,10 @@ module.exports = function(karma) {
 
     browsers: ['Chrome'],
 
+    mime: {
+      'text/x-typescript': ['ts', 'tsx']
+    },
+
     port: 9018,
     runnerPort: 9101,
     colors: true,
@@ -61,7 +65,7 @@ module.exports = function(karma) {
           },
           {
             enforce: 'post',
-            test: /\.(js|ts)$/, loader: 'istanbul-instrumenter',
+            test: /\.(js|ts)$/, loader: 'istanbul-instrumenter-loader',
             include: path.resolve(__dirname, 'src'),
             exclude: [
               /\.(e2e|spec|bundle)\.ts$/,
