@@ -22,6 +22,12 @@ export function listenForRouterMethodActions(router: Router, location: Location,
           router.navigate(commands, Object.assign({}, extras, { queryParams }));
           break;
 
+        case routerActions.GO_TO_URL:
+          if (typeof path === 'string') {
+            router.navigateByUrl(path, Object.assign({}, extras));
+          }
+          break;
+
         case routerActions.REPLACE:
           router.navigate(commands, Object.assign({}, extras, { queryParams, replaceUrl: true }));
           break;

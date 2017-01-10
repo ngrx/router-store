@@ -63,7 +63,23 @@ describe('Router/Store Connectors', function() {
       });
     });
 
-    describe('should call Router@navigateByUrl when a "REPLACE" action is dispatched', function() {
+    describe('should call Router@navigateByUrl when a "GO_TO_URL" action is dispatched', function() {
+      it('with a string', function() {
+        const action$ = Observable.of(routerActions.goToUrl(stringPath));
+        listenForRouterMethodActions(router, location, action$);
+
+        expect(router.navigateByUrl).toHaveBeenCalledWith(stringPath, {});
+      });
+
+      it('with extras', function() {
+        const action$ = Observable.of(routerActions.goToUrl(stringPath, extras));
+        listenForRouterMethodActions(router, location, action$);
+
+        expect(router.navigateByUrl).toHaveBeenCalledWith('/path', Object.assign({}, extras));
+      });
+    });
+
+    describe('should call Router@navigate when a "REPLACE" action is dispatched', function() {
       it('with a string', function() {
         const action$ = Observable.of(routerActions.replace(stringPath, { query: 'string' }));
         listenForRouterMethodActions(router, location, action$);
@@ -108,7 +124,7 @@ describe('Router/Store Connectors', function() {
       });
     });
 
-    describe('should call Router@navigate when a "SEARCH" action is dispatched', function() {
+    describe('should call Router@navigateByUrl when a "SEARCH" action is dispatched', function() {
       it('with query params', function() {
         const action$ = Observable.of(routerActions.search({ query: 'string' }));
         router.url = '/path';
