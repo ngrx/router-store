@@ -26,7 +26,6 @@ describe('Actions', function() {
       type: actions.routerActions.GO_TO_URL,
       payload: {
         path: '/path',
-        query: undefined,
         extras: undefined
       }
     });

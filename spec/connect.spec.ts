@@ -68,7 +68,7 @@ describe('Router/Store Connectors', function() {
         const action$ = Observable.of(routerActions.goToUrl(stringPath));
         listenForRouterMethodActions(router, location, action$);
 
-        expect(router.navigateByUrl).toHaveBeenCalledWith(stringPath);
+        expect(router.navigateByUrl).toHaveBeenCalledWith(stringPath, {});
       });
 
       it('with extras', function() {
