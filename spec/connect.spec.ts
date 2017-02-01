@@ -1,12 +1,13 @@
 import 'rxjs/add/observable/of';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Subject } from 'rxjs/Subject';
 import { Router, NavigationEnd, NavigationExtras } from '@angular/router';
 import { Store } from '@ngrx/store';
 
 import { RouterState } from '../src/reducer';
 import * as routerActions from '../src/actions';
-import { listenForRouterMethodActions, connectRouterActions } from '../src/connect';
+import { listenForRouterMethodActions, connectRouterActions, listenForStoreChanges } from '../src/connect';
 
 describe('Router/Store Connectors', function() {
   describe('listenForRouterMethodActions', function() {
@@ -152,13 +153,82 @@ describe('Router/Store Connectors', function() {
   });
 
   describe('connectRouterActions', function() {
+    let events;
+
+    beforeEach(() => {
+      events = new Subject();
+    });
+
     it('should map router updates into an "UPDATE_LOCATION" action', function(done) {
-      const update: any = { path: '/some/path' };
+      const store: any = new BehaviorSubject({ router: { path: '' } });
+
       const router: any = {
-        events: Observable.of(new NavigationEnd(1, '/some/path', '/some/path'))
+        url: '/home',
+        events
       };
 
-      done();
+      connectRouterActions(router, store);
+
+      router.events.next(new NavigationEnd(1, '/', '/'));
+
+      store.subscribe(action => {
+        expect(action.type).toBe(routerActions.routerActions.UPDATE_LOCATION);
+        expect(action.payload.path).toBe(router.url);
+        done();
+      });
+    });
+
+    it('should map router updates into an "UPDATE_LOCATION" action when undefined', function(done) {
+      const store: any = new BehaviorSubject({ });
+
+      const router: any = {
+        url: '/home',
+        events
+      };
+
+      connectRouterActions(router, store);
+
+      router.events.next(new NavigationEnd(1, '/', '/'));
+
+      store.subscribe(action => {
+        expect(action.type).toBe(routerActions.routerActions.UPDATE_LOCATION);
+        expect(action.payload.path).toBe(router.url);
+        done();
+      });
+    });
+  });
+
+  describe('listenForStoreChanges', function() {
+    let events;
+    let store: any;
+    let router: any;
+
+    beforeEach(() => {
+      events = new Subject();
+
+      router = {
+        url: '/home',
+        events,
+        navigateByUrl: jasmine.createSpy('navigateByUrl')
+      };
+
+      store = new BehaviorSubject({ router: { path: '/' }});
+
+      listenForStoreChanges(router, store);
+
+      router.events.next(new NavigationEnd(1, '/home', '/home'));
+    });
+
+    it('should navigate when router url and state path are different', () => {
+      store.next({ router: { path: '/test' }});
+
+      expect(router.navigateByUrl).toHaveBeenCalledWith('/test');
+    });
+
+    it('should not navigate when router url and state path are the same', () => {
+      store.next({ router: { path: '/home' }});
+
+      expect(router.navigateByUrl).not.toHaveBeenCalled();
     });
   });
 });
