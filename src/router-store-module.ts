@@ -32,7 +32,7 @@ export function provideRouterConnector() {
   };
 }
 
-@NgModule()
+@NgModule({})
 export class RouterStoreModule {
   static connectRouter() {
     return {

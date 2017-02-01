@@ -29,6 +29,10 @@ module.exports = function(karma) {
         { type: 'html' }
       ]
     },
+    
+    mime: {
+      'text/x-typescript': ['ts', 'tsx']
+    },
 
     browsers: ['Chrome'],
 
