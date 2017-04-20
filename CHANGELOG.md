@@ -1,3 +1,14 @@
+<a name="1.2.6"></a>
+## [1.2.6](https://github.com/ngrx/router-store/compare/v1.2.5...v1.2.6) (2017-04-20)
+
+
+### Bug Fixes
+
+* **deps:** Fixed peer dependencies for Angular 4.x ([#52](https://github.com/ngrx/router-store/issues/52)) ([6e63e9e](https://github.com/ngrx/router-store/commit/6e63e9e))
+* **ngmodule:** Added empty object for NgModule metadata ([#39](https://github.com/ngrx/router-store/issues/39)) ([95e0021](https://github.com/ngrx/router-store/commit/95e0021))
+
+
+
 <a name="1.2.5"></a>
 ## [1.2.5](https://github.com/ngrx/router-store/compare/v1.2.4...v1.2.5) (2016-10-13)
 
@@ -84,7 +95,7 @@
 
 ### BREAKING CHANGES
 
-* router-store: Router API has changed internally
+* **router-store:** Router API has changed internally
 
 BEFORE:
 

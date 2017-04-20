@@ -1,6 +1,6 @@
 {
   "name": "@ngrx/router-store",
-  "version": "1.2.5",
+  "version": "1.2.6",
   "description": "Bindings to connect angular/router to ngrx/store",
   "main": "bundles/router-store.umd.js",
   "module": "index.js",
