@@ -29,7 +29,7 @@ module.exports = function(karma) {
         { type: 'html' }
       ]
     },
-    
+
     mime: {
       'text/x-typescript': ['ts', 'tsx']
     },
@@ -65,7 +65,7 @@ module.exports = function(karma) {
           },
           {
             enforce: 'post',
-            test: /\.(js|ts)$/, loader: 'istanbul-instrumenter',
+            test: /\.(js|ts)$/, loader: 'istanbul-instrumenter-loader',
             include: path.resolve(__dirname, 'src'),
             exclude: [
               /\.(e2e|spec|bundle)\.ts$/,
@@ -83,7 +83,13 @@ module.exports = function(karma) {
               resourcePath: 'src'
             }
           }
-        })
+        }),
+        new webpack.ContextReplacementPlugin(
+          // The (\\|\/) piece accounts for path separators in *nix and Windows
+          /angular(\\|\/)core(\\|\/)(esm(\\|\/)src|src)(\\|\/)linker/,
+          path.resolve('src'),
+          {}
+        )
       ]
     }
   });
