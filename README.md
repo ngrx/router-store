@@ -41,10 +41,21 @@ Bindings to connect angular/router to ngrx/store
 
   export interface AppState {
     router: RouterState;
+    // [other state members here]
   };
   ```
 
-3. (Optional) Set the initial value for the router state:
+3. Combine reducer with other reducers:
+
+  ```ts
+  const reducers = {
+    router: routerReducer,
+    // [other reducers here]
+  };
+
+  ```
+
+4. (Optional) Set the initial value for the router state by providing it in @NgModule:
 
   ```ts
   StoreModule.provideStore({ router: routerReducer }, {
@@ -52,6 +63,16 @@ Bindings to connect angular/router to ngrx/store
       path: window.location.pathname + window.location.search
     }
   })
+  ```
+  
+  or directly in initial state variable:
+  
+  ```ts
+  const initialState: AppState = {
+    router: {
+      path: window.location.pathname + window.location.search,
+    },
+  // [other initializers here]
   ```
 
 ### Dispatching Actions
