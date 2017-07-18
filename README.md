@@ -1,10 +1,10 @@
+---
+# This repository is for version 1.x of of @ngrx/router-store.
+# [Click here for the latest version (4.x)](https://github.com/ngrx/platform)
+---
+
 # @ngrx/router-store
 Bindings to connect angular/router to ngrx/store
-
----
-#### This repository is for version 1.x of of @ngrx/router-store.
-#### [Click here for the latest version (4.x)](https://github.com/ngrx/platform)
----
 
 [![Join the chat at https://gitter.im/ngrx/store](https://badges.gitter.im/ngrx/store.svg)](https://gitter.im/ngrx/store?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
